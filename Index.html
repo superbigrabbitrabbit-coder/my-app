@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熊大先生 × 誰最了解熊大</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown: #6B3F1E;
+    --brown-light: #A0673A;
+    --cream: #FFF8EF;
+    --warm-yellow: #FFD97D;
+    --blush: #FFB3C6;
+    --soft-white: #FFF0E0;
+    --cony-white: #F5F0EB;
+    --deep-brown: #3D2009;
+    --toast: #E8A855;
+    --coffee: #4A2C12;
+    --green-leaf: #8BC34A;
+    --shadow: rgba(107,63,30,0.15);
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: ‘Noto Sans TC’, ‘Nunito’, sans-serif;
+background: var(–cream);
+min-height: 100vh;
+overflow-x: hidden;
+position: relative;
+}
+
+/* Floating paws background */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image:
+radial-gradient(ellipse at 20% 20%, rgba(255,217,125,0.18) 0%, transparent 60%),
+radial-gradient(ellipse at 80% 80%, rgba(255,179,198,0.15) 0%, transparent 55%),
+radial-gradient(ellipse at 60% 10%, rgba(160,103,58,0.07) 0%, transparent 50%);
+pointer-events: none;
+z-index: 0;
+}
+
+/* Paw print decorations */
+.paw-bg {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+.paw {
+position: absolute;
+font-size: 1.5rem;
+opacity: 0.07;
+animation: floatPaw 8s infinite ease-in-out;
+}
+@keyframes floatPaw {
+0%,100% { transform: translateY(0) rotate(0deg); }
+50% { transform: translateY(-14px) rotate(12deg); }
+}
+
+/* ── HEADER ── */
+header {
+position: relative;
+z-index: 10;
+background: linear-gradient(135deg, var(–brown) 0%, var(–brown-light) 100%);
+padding: 0;
+overflow: hidden;
+}
+.header-inner {
+max-width: 900px;
+margin: 0 auto;
+padding: 36px 24px 28px;
+display: flex;
+align-items: center;
+gap: 24px;
+}
+.bear-avatar {
+width: 96px;
+height: 96px;
+border-radius: 50%;
+background: var(–deep-brown);
+border: 4px solid var(–warm-yellow);
+flex-shrink: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 3.6rem;
+box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+animation: bearBounce 3s ease-in-out infinite;
+}
+@keyframes bearBounce {
+0%,100% { transform: translateY(0); }
+50% { transform: translateY(-6px); }
+}
+.header-text { color: #fff; }
+.header-tag {
+display: inline-block;
+background: var(–warm-yellow);
+color: var(–deep-brown);
+font-family: ‘Nunito’, sans-serif;
+font-weight: 800;
+font-size: 0.7rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 3px 10px;
+border-radius: 20px;
+margin-bottom: 8px;
+}
+.header-title {
+font-size: clamp(1.5rem, 4vw, 2.2rem);
+font-weight: 900;
+line-height: 1.2;
+text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-sub {
+font-size: 0.85rem;
+opacity: 0.8;
+margin-top: 4px;
+}
+.header-wave {
+width: 100%;
+display: block;
+margin-bottom: -2px;
+}
+
+/* ── MAIN ── */
+main {
+position: relative;
+z-index: 5;
+max-width: 860px;
+margin: 0 auto;
+padding: 0 20px 60px;
+}
+
+/* Story card */
+.story-card {
+background: #fff;
+border-radius: 28px;
+padding: 32px 28px;
+margin-top: -8px;
+box-shadow: 0 8px 40px var(–shadow);
+position: relative;
+overflow: hidden;
+}
+.story-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 5px;
+background: linear-gradient(90deg, var(–warm-yellow), var(–blush), var(–toast));
+}
+.story-label {
+font-size: 0.72rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–brown-light);
+margin-bottom: 12px;
+}
+.story-text {
+font-size: 1.05rem;
+color: #3a2a1a;
+line-height: 1.85;
+font-weight: 500;
+}
+.story-text em {
+font-style: normal;
+color: var(–brown);
+font-weight: 700;
+}
+
+/* Image strip */
+.img-strip {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 14px;
+margin: 24px 0;
+}
+.img-strip img {
+width: 100%;
+aspect-ratio: 1;
+object-fit: cover;
+border-radius: 18px;
+border: 3px solid var(–cream);
+box-shadow: 0 4px 16px var(–shadow);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+cursor: pointer;
+}
+.img-strip img:hover {
+transform: scale(1.04) rotate(-1deg);
+box-shadow: 0 8px 28px var(–shadow);
+}
+
+/* ── POLL SECTION ── */
+.poll-section {
+margin-top: 28px;
+}
+.poll-title {
+font-size: clamp(1.3rem, 3vw, 1.7rem);
+font-weight: 900;
+color: var(–deep-brown);
+margin-bottom: 6px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.poll-title .badge {
+background: var(–blush);
+border-radius: 50%;
+width: 38px;
+height: 38px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.4rem;
+flex-shrink: 0;
+}
+.poll-sub {
+color: #7a5a3a;
+font-size: 0.9rem;
+margin-bottom: 22px;
+line-height: 1.6;
+}
+
+/* Choices */
+.choices { display: flex; flex-direction: column; gap: 14px; }
+.choice-btn {
+background: var(–soft-white);
+border: 2.5px solid transparent;
+border-radius: 20px;
+padding: 18px 22px;
+display: flex;
+align-items: center;
+gap: 16px;
+cursor: pointer;
+transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+text-align: left;
+font-family: ‘Noto Sans TC’, sans-serif;
+position: relative;
+overflow: hidden;
+}
+.choice-btn::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.5));
+pointer-events: none;
+}
+.choice-btn:hover {
+transform: translateY(-3px) scale(1.01);
+box-shadow: 0 8px 24px var(–shadow);
+}
+.choice-btn.selected {
+border-color: var(–brown);
+background: var(–cream);
+box-shadow: 0 6px 20px rgba(107,63,30,0.2);
+transform: scale(1.01);
+}
+.choice-btn.choice-a { border-color: rgba(239,83,80,0.2); }
+.choice-btn.choice-a:hover, .choice-btn.choice-a.selected {
+border-color: #EF5350;
+background: #fff5f5;
+}
+.choice-btn.choice-b { border-color: rgba(236,64,122,0.2); }
+.choice-btn.choice-b:hover, .choice-btn.choice-b.selected {
+border-color: #EC407A;
+background: #fff0f6;
+}
+.choice-btn.choice-c { border-color: rgba(102,187,106,0.2); }
+.choice-btn.choice-c:hover, .choice-btn.choice-c.selected {
+border-color: #66BB6A;
+background: #f2fff2;
+}
+
+.choice-letter {
+width: 44px;
+height: 44px;
+border-radius: 50%;
+font-family: ‘Nunito’, sans-serif;
+font-size: 1.2rem;
+font-weight: 900;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+color: #fff;
+}
+.choice-a .choice-letter { background: #EF5350; }
+.choice-b .choice-letter { background: #EC407A; }
+.choice-c .choice-letter { background: #66BB6A; }
+
+.choice-content { flex: 1; }
+.choice-text {
+font-size: 1rem;
+font-weight: 700;
+color: var(–deep-brown);
+line-height: 1.4;
+}
+.choice-sub {
+font-size: 0.78rem;
+color: #9a7a5a;
+margin-top: 2px;
+}
+.choice-emoji { font-size: 1.6rem; }
+
+/* Progress bar (shown after vote) */
+.progress-bar-wrap {
+display: none;
+margin-top: 8px;
+height: 7px;
+background: rgba(0,0,0,0.07);
+border-radius: 10px;
+overflow: hidden;
+}
+.progress-bar {
+height: 100%;
+border-radius: 10px;
+transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+width: 0%;
+}
+.choice-a .progress-bar { background: #EF5350; }
+.choice-b .progress-bar { background: #EC407A; }
+.choice-c .progress-bar { background: #66BB6A; }
+.progress-count {
+font-size: 0.75rem;
+font-weight: 700;
+color: #7a5a3a;
+margin-top: 4px;
+display: none;
+}
+
+/* Submit */
+.submit-area {
+margin-top: 24px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 12px;
+}
+.submit-btn {
+background: linear-gradient(135deg, var(–brown) 0%, var(–brown-light) 100%);
+color: #fff;
+border: none;
+border-radius: 50px;
+padding: 16px 48px;
+font-family: ‘Nunito’, sans-serif;
+font-size: 1.1rem;
+font-weight: 800;
+cursor: pointer;
+box-shadow: 0 6px 20px rgba(107,63,30,0.35);
+transition: all 0.2s ease;
+letter-spacing: 0.03em;
+}
+.submit-btn:hover:not(:disabled) {
+transform: translateY(-3px);
+box-shadow: 0 10px 28px rgba(107,63,30,0.45);
+}
+.submit-btn:disabled {
+opacity: 0.5;
+cursor: default;
+}
+.hint-text {
+font-size: 0.8rem;
+color: #b08060;
+}
+
+/* Result bubble */
+.result-bubble {
+display: none;
+background: linear-gradient(135deg, var(–warm-yellow) 0%, #FFE9A0 100%);
+border-radius: 24px;
+padding: 28px 24px;
+margin-top: 24px;
+text-align: center;
+box-shadow: 0 6px 24px rgba(200,150,0,0.2);
+animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+0% { transform: scale(0.7); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
+}
+.result-bear { font-size: 3rem; margin-bottom: 8px; }
+.result-title {
+font-size: 1.2rem;
+font-weight: 900;
+color: var(–deep-brown);
+margin-bottom: 6px;
+}
+.result-msg { font-size: 0.92rem; color: #6a4a1a; line-height: 1.6; }
+
+/* Comments */
+.comments-section {
+margin-top: 36px;
+background: #fff;
+border-radius: 28px;
+padding: 28px 24px;
+box-shadow: 0 6px 32px var(–shadow);
+}
+.comments-header {
+font-size: 1.1rem;
+font-weight: 800;
+color: var(–deep-brown);
+margin-bottom: 18px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.comment-input-row {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+.comment-avatar {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(–brown);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.4rem;
+flex-shrink: 0;
+border: 2px solid var(–warm-yellow);
+}
+.comment-input {
+flex: 1;
+border: 2px solid #e8d8c8;
+border-radius: 20px;
+padding: 10px 16px;
+font-family: ‘Noto Sans TC’, sans-serif;
+font-size: 0.9rem;
+color: var(–deep-brown);
+outline: none;
+resize: none;
+background: var(–cream);
+transition: border-color 0.2s;
+min-height: 44px;
+}
+.comment-input:focus { border-color: var(–brown-light); }
+.comment-send {
+background: var(–brown);
+color: #fff;
+border: none;
+border-radius: 50%;
+width: 44px;
+height: 44px;
+font-size: 1.2rem;
+cursor: pointer;
+flex-shrink: 0;
+transition: background 0.2s, transform 0.2s;
+align-self: flex-end;
+}
+.comment-send:hover { background: var(–deep-brown); transform: scale(1.08); }
+
+.comments-list { display: flex; flex-direction: column; gap: 14px; }
+.comment-item {
+display: flex;
+gap: 10px;
+animation: slideIn 0.4s ease;
+}
+@keyframes slideIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.comment-icon {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+flex-shrink: 0;
+background: var(–cony-white);
+border: 1.5px solid #e0d0c0;
+}
+.comment-body { flex: 1; }
+.comment-name {
+font-size: 0.75rem;
+font-weight: 700;
+color: var(–brown-light);
+margin-bottom: 4px;
+}
+.comment-text {
+background: var(–cream);
+border-radius: 0 16px 16px 16px;
+padding: 10px 14px;
+font-size: 0.88rem;
+color: #3a2a1a;
+line-height: 1.55;
+display: inline-block;
+}
+.comment-tag {
+display: inline-block;
+font-size: 0.72rem;
+font-weight: 700;
+padding: 1px 8px;
+border-radius: 10px;
+margin-left: 6px;
+vertical-align: middle;
+}
+.tag-a { background: #FFE0E0; color: #c0392b; }
+.tag-b { background: #FFE0EF; color: #c0115a; }
+.tag-c { background: #E0FFE2; color: #217a25; }
+
+/* Likes */
+.comment-actions {
+display: flex;
+gap: 12px;
+margin-top: 4px;
+padding-left: 2px;
+}
+.like-btn {
+background: none;
+border: none;
+font-size: 0.78rem;
+color: #b08060;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 4px;
+padding: 2px 0;
+transition: color 0.2s;
+font-family: ‘Noto Sans TC’, sans-serif;
+}
+.like-btn:hover, .like-btn.liked { color: #e0606a; }
+
+/* Footer */
+footer {
+position: relative;
+z-index: 5;
+background: var(–deep-brown);
+color: rgba(255,255,255,0.6);
+text-align: center;
+padding: 24px;
+font-size: 0.78rem;
+line-height: 2;
+}
+footer strong { color: var(–warm-yellow); }
+
+/* Confetti */
+.confetti-piece {
+position: fixed;
+width: 10px;
+height: 10px;
+border-radius: 2px;
+pointer-events: none;
+z-index: 9999;
+animation: confettiFall 2.5s ease-in forwards;
+}
+@keyframes confettiFall {
+0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+}
+
+@media (max-width: 600px) {
+.header-inner { flex-direction: column; text-align: center; }
+.img-strip { gap: 8px; }
+.choice-btn { padding: 14px 14px; }
+.story-card { padding: 22px 18px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="paw-bg" id="pawBg"></div>
+
+<!-- HEADER -->
+
+<header>
+  <div class="header-inner">
+    <div class="bear-avatar">🐻</div>
+    <div class="header-text">
+      <div class="header-tag">✨ 熊大先生 LINE FRIENDS</div>
+      <div class="header-title">熊大先生官方粉絲頁</div>
+      <div class="header-sub">陪你一起過每一個普通又特別的早晨 🍳☕</div>
+    </div>
+  </div>
+  <svg class="header-wave" viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C360,48 720,0 1080,24 L1440,16 L1440,40 L0,40 Z" fill="#FFF8EF"/>
+  </svg>
+</header>
+
+<!-- MAIN -->
+
+<main>
+
+  <!-- Story Card -->
+
+  <div class="story-card">
+    <div class="story-label">📖 今天的故事</div>
+    <p class="story-text">
+      熊大今天起了一大早，準備了一份「<em>特別</em>」的早餐！<br>
+      雖然看起來很正常，但聽說裡面藏了一個只有<em>兔兔才懂</em>的小秘密？💖<br><br>
+      大家快來猜猜看，熊大在早餐裡加了什麼料？
+    </p>
+
+```
+<!-- Option images -->
+<div class="img-strip">
+  <img src="option_a_spicy_jam.png" alt="選項 A 超辣果醬" title="A：超辣的果醬 🌶️" onerror="this.style.background='#ffe0e0';this.alt='A 🌶️'">
+  <img src="option_b_love_note.png" alt="選項 B 告白紙條" title="B：告白小紙條 💌" onerror="this.style.background='#ffe0f0';this.alt='B 💌'">
+  <img src="option_c_clay_breakfast.png" alt="選項 C 黏土早餐" title="C：黏土做的！🎨" onerror="this.style.background='#e0ffe2';this.alt='C 🎨'">
+</div>
+
+<!-- Poll -->
+<div class="poll-section">
+  <div class="poll-title">
+    <div class="badge">🐻</div>
+    誰最了解熊大？
+  </div>
+  <p class="poll-sub">在下方選出你的答案，看看誰最了解熊大！👇<br>結果會即時顯示～</p>
+
+  <div class="choices" id="choices">
+
+    <button class="choice-btn choice-a" onclick="selectChoice('a', this)">
+      <div class="choice-letter">A</div>
+      <div class="choice-content">
+        <div class="choice-text">其實是超辣的果醬 🌶️</div>
+        <div class="choice-sub">熊大偶爾也有壞心眼的一面？！</div>
+        <div class="progress-bar-wrap" id="bar-a"><div class="progress-bar" id="fill-a"></div></div>
+        <div class="progress-count" id="count-a"></div>
+      </div>
+      <div class="choice-emoji">😈</div>
+    </button>
+
+    <button class="choice-btn choice-b" onclick="selectChoice('b', this)">
+      <div class="choice-letter">B</div>
+      <div class="choice-content">
+        <div class="choice-text">藏了一張告白小紙條 💌</div>
+        <div class="choice-sub">暖男熊大的專屬浪漫！</div>
+        <div class="progress-bar-wrap" id="bar-b"><div class="progress-bar" id="fill-b"></div></div>
+        <div class="progress-count" id="count-b"></div>
+      </div>
+      <div class="choice-emoji">🥰</div>
+    </button>
+
+    <button class="choice-btn choice-c" onclick="selectChoice('c', this)">
+      <div class="choice-letter">C</div>
+      <div class="choice-content">
+        <div class="choice-text">其實這整盤都是黏土做的（？）🎨</div>
+        <div class="choice-sub">熊大：我只是不想洗碗啦……</div>
+        <div class="progress-bar-wrap" id="bar-c"><div class="progress-bar" id="fill-c"></div></div>
+        <div class="progress-count" id="count-c"></div>
+      </div>
+      <div class="choice-emoji">🫠</div>
+    </button>
+
+  </div>
+
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn" onclick="submitVote()" disabled>送出我的答案 🐾</button>
+    <span class="hint-text" id="hintText">請先選擇一個答案</span>
+  </div>
+
+  <!-- Result -->
+  <div class="result-bubble" id="resultBubble">
+    <div class="result-bear" id="resultEmoji">🐻</div>
+    <div class="result-title" id="resultTitle">謝謝你的參與！</div>
+    <div class="result-msg" id="resultMsg"></div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- Comments -->
+
+  <div class="comments-section">
+    <div class="comments-header">💬 粉絲留言區 <span style="font-size:0.8rem;font-weight:500;color:#b08060;">— 大家都怎麼說？</span></div>
+
+```
+<div class="comment-input-row">
+  <div class="comment-avatar">🐰</div>
+  <textarea class="comment-input" id="commentInput" placeholder="留下你的答案與想法！(A/B/C)" rows="1"
+    oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+  <button class="comment-send" onclick="postComment()" title="送出">➤</button>
+</div>
+
+<div class="comments-list" id="commentsList"></div>
+```
+
+  </div>
+
+</main>
+
+<footer>
+  <strong>熊大先生 Mr. Brown</strong> — LINE FRIENDS<br>
+  © 粉絲互動活動頁 · 用愛製作 🍳🐻
+</footer>
+
+<script>
+// ── Paw prints bg ──
+const pawBg = document.getElementById('pawBg');
+const icons = ['🐾','🐻','☕','🍳','💛','🐾'];
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('div');
+  p.className = 'paw';
+  p.textContent = icons[i % icons.length];
+  p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${1+Math.random()*1.5}rem;animation-delay:${Math.random()*6}s;animation-duration:${6+Math.random()*5}s`;
+  pawBg.appendChild(p);
+}
+
+// ── Poll logic ──
+let selected = null;
+let voted = false;
+const votes = { a: 42, b: 118, c: 31 };
+
+const results = {
+  a: { emoji: '🌶️😈', title: '熊大的惡作劇王！', msg: '哈哈，你認為熊大有壞壞的一面～\n其實熊大只是想讓兔兔嚇一跳啦！(但兔兔才不會上當呢 😏)' },
+  b: { emoji: '💌🥰', title: '你最了解熊大的心！', msg: '答對了！熊大就是這樣默默把心意藏在日常小事裡～\n這就是為什麼兔兔怎麼樣都離不開他！' },
+  c: { emoji: '🎨🫠', title: '創意十足的你！', msg: '哈哈黏土早餐！！雖然不是正確答案，\n但熊大看到這個答案一定會噗哧一笑的 🐻✨' }
+};
+
+function selectChoice(key, btn) {
+  if (voted) return;
+  selected = key;
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('hintText').textContent = '確定好了嗎？點送出見結果！✨';
+}
+
+function submitVote() {
+  if (!selected || voted) return;
+  voted = true;
+  votes[selected]++;
+  const total = votes.a + votes.b + votes.c;
+
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('hintText').textContent = '已送出 🐾 感謝參與！';
+
+  // Show bars
+  ['a','b','c'].forEach(k => {
+    const pct = Math.round(votes[k] / total * 100);
+    document.getElementById('bar-' + k).style.display = 'block';
+    document.getElementById('count-' + k).style.display = 'block';
+    document.getElementById('count-' + k).textContent = `${pct}% (${votes[k]} 票)`;
+    setTimeout(() => {
+      document.getElementById('fill-' + k).style.width = pct + '%';
+    }, 50);
+  });
+
+  // Result bubble
+  const r = results[selected];
+  const bubble = document.getElementById('resultBubble');
+  document.getElementById('resultEmoji').textContent = r.emoji;
+  document.getElementById('resultTitle').textContent = r.title;
+  document.getElementById('resultMsg').textContent = r.msg;
+  bubble.style.display = 'block';
+
+  // Confetti
+  launchConfetti();
+}
+
+function launchConfetti() {
+  const colors = ['#FFD97D','#FFB3C6','#EF5350','#66BB6A','#EC407A','#A0673A'];
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.cssText = `left:${10+Math.random()*80}%;top:-10px;background:${colors[~~(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${2+Math.random()*1.5}s;animation-delay:${Math.random()*0.5}s`;
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 3500);
+    }, i * 30);
+  }
+}
+
+// ── Comments ──
+const seed = [
+  { icon: '🐰', name: '兔兔粉絲', tag: 'b', text: '一定是 B！熊大就是這樣悄悄把愛藏起來的～💌' },
+  { icon: '🍳', name: '早餐控', tag: 'c', text: '我選 C 哈哈哈，黏土早餐的梗太好笑了 XDDD 🎨' },
+  { icon: '☕', name: '咖啡熊粉', tag: 'b', text: '熊大暖男無誤！答案當然是 B 告白紙條啊！🥰' },
+  { icon: '🌶️', name: '辣辣辣', tag: 'a', text: '我覺得是 A！熊大平常沉默，一定偷偷壞壞的 😈' },
+  { icon: '🐾', name: '熊大守護者', tag: 'b', text: '選 B！因為只有兔兔才會收到這份小心意 💛' },
+];
+let likeState = {};
+
+function renderComments(list) {
+  const el = document.getElementById('commentsList');
+  el.innerHTML = list.map((c, i) => {
+    const tagClass = `tag-${c.tag || ''}`;
+    const tagLabel = c.tag ? { a:'選 A 🌶️', b:'選 B 💌', c:'選 C 🎨' }[c.tag] : '';
+    const likes = c.likes || 0;
+    return `
+    <div class="comment-item" id="ci-${i}">
+      <div class="comment-icon">${c.icon}</div>
+      <div class="comment-body">
+        <div class="comment-name">${c.name} ${tagLabel ? `<span class="comment-tag ${tagClass}">${tagLabel}</span>` : ''}</div>
+        <div class="comment-text">${c.text}</div>
+        <div class="comment-actions">
+          <button class="like-btn ${likeState[i]?'liked':''}" onclick="toggleLike(${i}, ${likes})">
+            ${likeState[i]?'❤️':'🤍'} ${likeState[i] ? likes+1 : likes}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+let comments = seed.map((c, i) => ({ ...c, likes: [8, 5, 12, 3, 7][i] }));
+
+function toggleLike(idx) {
+  likeState[idx] = !likeState[idx];
+  renderComments(comments);
+}
+
+function postComment() {
+  const input = document.getElementById('commentInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const tagMap = { a: 'a', A: 'a', b: 'b', B: 'b', c: 'c', C: 'c' };
+  const detectedTag = text.match(/[ABCabc]/)?.[0];
+  const tag = detectedTag ? tagMap[detectedTag] : null;
+
+  comments.unshift({ icon: '🐰', name: '你', text, tag, likes: 0 });
+  likeState = {};  // reset for new indices
+  renderComments(comments);
+  input.value = '';
+  input.style.height = 'auto';
+}
+
+// Initial render
+renderComments(comments);
+</script>
+
+</body>
+</html>
